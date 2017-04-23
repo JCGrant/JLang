@@ -3,3 +3,4 @@
 .stack-work
 
 Lexer.hs
+Parser.hs
