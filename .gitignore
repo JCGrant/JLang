@@ -2,6 +2,7 @@
 
 .stack-work
 .vscode
+dist
 
 Lexer.hs
 Parser.hs
