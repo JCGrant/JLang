@@ -8,7 +8,7 @@ $digit = 0-9
 $alpha = [a-zA-Z]
 
 tokens :-
-  $white+                       ;
+  $white+                       { \s -> checkWhiteSpace s }
   "--".*                        ;
   $digit+                       { \s -> TokenInt (read s) }
   \=                            { \s -> TokenEq }
@@ -31,7 +31,14 @@ data Token
   | TokenDiv
   | TokenLParen
   | TokenRParen
+  | TokenNewLine
+  | TokenWhiteSpace
   deriving (Eq, Show)
 
-scanTokens = alexScanTokens
+checkWhiteSpace :: String -> Token
+checkWhiteSpace s
+  | '\n' `elem` s = TokenNewLine
+  | otherwise     = TokenWhiteSpace
+
+scanTokens = filter (/= TokenWhiteSpace) . alexScanTokens
 }

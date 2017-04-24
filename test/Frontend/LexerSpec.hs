@@ -34,3 +34,7 @@ spec =
     it "scans symbols" $ do
       scanTokens "x" `shouldBe` [TokenSym "x"]
       scanTokens "var" `shouldBe` [TokenSym "var"]
+    it "scans newlines" $
+      scanTokens "\n" `shouldBe` [TokenNewLine]
+    it "scans newlines inside other whitespace" $
+      scanTokens "\t\t   \n\t\t   " `shouldBe` [TokenNewLine]

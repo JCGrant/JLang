@@ -17,6 +17,7 @@ import Frontend.Lexer
   '/' { TokenDiv }
   '(' { TokenLParen }
   ')' { TokenRParen }
+  '\n'{ TokenNewLine }
 
 %left '='
 %left '+' '-'
@@ -25,9 +26,19 @@ import Frontend.Lexer
 
 %%
 
+Stmts
+  : Stmt '\n' Stmts       { $1 : $3 }
+-- Switching Stmt and Stmts around would be more efficient.
+-- See https://www.haskell.org/happy/doc/html/sec-sequences.html
+  | Stmt                  { [$1] }
+  | {- empty -}           { [] }
+
+Stmt
+  : Expr                  { ExprStmt $1 }
+  | var '=' Expr          { Assign $1 $3 }
+
 Expr
-  : var '=' Expr          { Assign $1 $3 }
-  | Expr '+' Expr         { Add $1 $3 }
+  : Expr '+' Expr         { Add $1 $3 }
   | Expr '-' Expr         { Sub $1 $3 }
   | Expr '*' Expr         { Mul $1 $3 }
   | Expr '/' Expr         { Div $1 $3 }
@@ -37,9 +48,14 @@ Expr
   | var                   { Var $1 }
 
 {
+
+data Stmt
+  = ExprStmt Expr
+  | Assign String Expr
+  deriving (Eq, Show)
+
 data Expr
-  = Assign String Expr
-  | Add Expr Expr
+  = Add Expr Expr
   | Sub Expr Expr
   | Mul Expr Expr
   | Div Expr Expr
