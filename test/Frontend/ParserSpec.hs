@@ -25,3 +25,15 @@ spec =
       parse [TokenLParen, TokenInt 1, TokenRParen] `shouldBe` Int 1
     it "parses nagation" $
       parse [TokenMinus, TokenInt 1] `shouldBe` Neg (Int 1)
+    it "parses order of operations correctly" $ do
+      parse (scanTokens "(2 + 3) * 4") `shouldBe` Mul (Add (Int 2) (Int 3)) (Int 4)
+      parse (scanTokens "(2 + 3) * -4 - 8 / 2") `shouldBe`
+        Sub
+          (Mul
+            (Add
+              (Int 2)
+              (Int 3))
+            (Neg (Int 4)))
+          (Div
+            (Int 8)
+            (Int 2))
