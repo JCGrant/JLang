@@ -18,6 +18,7 @@ tokens :-
   \/                            { \s -> TokenDiv }
   \(                            { \s -> TokenLParen }
   \)                            { \s -> TokenRParen }
+  "print"                       { \s -> TokenPrint }
   $alpha [$alpha $digit \_ \']* { \s -> TokenSym s }
 
 {
@@ -33,6 +34,7 @@ data Token
   | TokenRParen
   | TokenNewLine
   | TokenWhiteSpace
+  | TokenPrint
   deriving (Eq, Show)
 
 checkWhiteSpace :: String -> Token

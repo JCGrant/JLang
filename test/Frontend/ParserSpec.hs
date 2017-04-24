@@ -48,3 +48,5 @@ spec =
         ExprStmt (Add (Int 1) (Int 1)),
         ExprStmt (Add (Int 2) (Int 2))
       ]
+    it "parses print statements" $
+      parse [TokenPrint, TokenInt 1] `shouldBe` [Print (Int 1)]

@@ -38,3 +38,5 @@ spec =
       scanTokens "\n" `shouldBe` [TokenNewLine]
     it "scans newlines inside other whitespace" $
       scanTokens "\t\t   \n\t\t   " `shouldBe` [TokenNewLine]
+    it "scans print" $
+      scanTokens "print" `shouldBe` [TokenPrint]

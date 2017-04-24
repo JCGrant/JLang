@@ -8,16 +8,17 @@ import Frontend.Lexer
 %error { parseError }
 
 %token
-  int { TokenInt $$ }
-  var { TokenSym $$ }
-  '=' { TokenEq }
-  '+' { TokenPlus }
-  '-' { TokenMinus }
-  '*' { TokenTimes }
-  '/' { TokenDiv }
-  '(' { TokenLParen }
-  ')' { TokenRParen }
-  '\n'{ TokenNewLine }
+  int       { TokenInt $$ }
+  var       { TokenSym $$ }
+  '='       { TokenEq }
+  '+'       { TokenPlus }
+  '-'       { TokenMinus }
+  '*'       { TokenTimes }
+  '/'       { TokenDiv }
+  '('       { TokenLParen }
+  ')'       { TokenRParen }
+  '\n'      { TokenNewLine }
+  print     { TokenPrint }
 
 %left '='
 %left '+' '-'
@@ -36,6 +37,7 @@ Stmts
 Stmt
   : Expr                  { ExprStmt $1 }
   | var '=' Expr          { Assign $1 $3 }
+  | print Expr            { Print $2 }
 
 Expr
   : Expr '+' Expr         { Add $1 $3 }
@@ -52,6 +54,8 @@ Expr
 data Stmt
   = ExprStmt Expr
   | Assign String Expr
+  | Print Expr
+-- Will eventually make print a built-in function
   deriving (Eq, Show)
 
 data Expr
