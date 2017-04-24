@@ -20,7 +20,7 @@ import Frontend.Lexer
   '\n'      { TokenNewLine }
   print     { TokenPrint }
 
-%left '='
+%right '='
 %left '+' '-'
 %left '*' '/'
 %left NEG

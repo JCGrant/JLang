@@ -11,8 +11,10 @@ spec =
       parse [TokenInt 1] `shouldBe` [ExprStmt (Int 1)]
     it "parses symbols" $
       parse [TokenSym "x"] `shouldBe` [ExprStmt (Var "x")]
-    it "parses assigns" $
+    it "parses assign statement" $
       parse [TokenSym "x", TokenEq, TokenInt 2] `shouldBe` [Assign "x" (Int 2)]
+    it "parses assign statement" $
+      parse [TokenSym "x", TokenEq, TokenInt 1, TokenPlus, TokenInt 2] `shouldBe` [Assign "x" (Add (Int 1) (Int 2))]
     it "parses addition" $
       parse [TokenInt 1, TokenPlus, TokenInt 2] `shouldBe` [ExprStmt (Add (Int 1) (Int 2))]
     it "parses subtraction" $
