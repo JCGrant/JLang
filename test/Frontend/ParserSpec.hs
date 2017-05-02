@@ -51,9 +51,9 @@ spec =
         ExprStmt (Add (Int 2) (Int 2))
       ]
     it "parses print statements" $
-      parse [TokenPrint, TokenInt 1] `shouldBe` [Print (Int 1)]
+      parse [TokenPrint, TokenLParen, TokenInt 1, TokenRParen] `shouldBe` [Print (Int 1)]
     it "parses a simple program" $
-      parse (scanTokens "x = 1 + 1\nprint x") `shouldBe` [
+      parse (scanTokens "x = 1 + 1\nprint(x)") `shouldBe` [
         Assign "x" (Add (Int 1) (Int 1)),
         Print (Var "x")
       ]

@@ -37,7 +37,7 @@ Stmts
 Stmt
   : Expr                  { ExprStmt $1 }
   | var '=' Expr          { Assign $1 $3 }
-  | print Expr            { Print $2 }
+  | print '(' Expr ')'    { Print $3 }
 
 Expr
   : Expr '+' Expr         { Add $1 $3 }
