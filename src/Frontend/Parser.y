@@ -31,6 +31,7 @@ Stmts
   : Stmt '\n' Stmts       { $1 : $3 }
 -- Switching Stmt and Stmts around would be more efficient.
 -- See https://www.haskell.org/happy/doc/html/sec-sequences.html
+  | '\n' Stmts            { $2 }
   | Stmt                  { [$1] }
   | {- empty -}           { [] }
 

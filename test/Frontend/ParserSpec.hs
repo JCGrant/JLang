@@ -57,3 +57,7 @@ spec =
         Assign "x" (Add (Int 1) (Int 1)),
         Print (Var "x")
       ]
+    it "parses a single new line" $
+      parse [TokenNewLine] `shouldBe` []
+    it "parses a file starting with new lines" $
+      parse [TokenNewLine, TokenInt 1] `shouldBe` [ExprStmt (Int 1)]
