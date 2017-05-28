@@ -10,7 +10,8 @@ maintainer:          james@jcgrant.com
 copyright:           2017 James Grant
 category:            Compiler
 build-type:          Simple
-extra-source-files:  README.md
+extra-source-files:  src/Frontend/Lexer.x
+                     src/Frontend/Parser.y
 cabal-version:       >=1.10
 
 library
@@ -21,6 +22,8 @@ library
   build-depends:       base >= 4.7 && < 5
                      , array
                      , containers
+  build-tools:         alex
+                     , happy
   default-language:    Haskell2010
 
 executable JLang-exe
