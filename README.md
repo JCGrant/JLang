@@ -1,1 +1,1 @@
-# JLang
+# JLang  - [![Build Status](https://travis-ci.org/JCGrant/JLang.svg?branch=master)](https://travis-ci.org/JCGrant/JLang)
